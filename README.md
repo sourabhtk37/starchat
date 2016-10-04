@@ -424,7 +424,7 @@ Output JSON
 return code: 201
 
 ```bash
-curl -v -H "Content-Type: application/json" -X POST http://localhost:8888/starchat-fi/knowledgebase -d '{
+curl -v -H "Content-Type: application/json" -X POST http://localhost:8888/starchat-en/knowledgebase -d '{
     "answer": "you are welcome!",
     "conversation": "832",
     "doctype": "normal",
@@ -499,7 +499,7 @@ return code: 201
 Sample call
 
 ```bash
-curl -v -H "Content-Type: application/json" -X PUT http://localhost:8888/starchat-fi/knowledgebase/                                                   e9d7c04d0c539415620884f8c885fef93e9fd0b49bbea23a7f2d08426e4d185119068365a0c1c4a506c5c43079e1e8da4ef7558a7f74756a8d850cb2d14e5297 -d '{
+curl -v -H "Content-Type: application/json" -X PUT http://localhost:8888/starchat-en/knowledgebase/                                                   e9d7c04d0c539415620884f8c885fef93e9fd0b49bbea23a7f2d08426e4d185119068365a0c1c4a506c5c43079e1e8da4ef7558a7f74756a8d850cb2d14e5297 -d '{
     "answer": "you are welcome!",
     "conversation": "832",
     "doctype": "normal",
