@@ -1,0 +1,25 @@
+elasticsearch:
+  image: elasticsearch:2.4.0
+  command: elasticsearch
+  ports:
+    - "0.0.0.0:9200:9200"
+    - "0.0.0.0:9300:9300"
+  expose:
+    - "9200"
+    - "9300"
+  volumes:
+    - ./elasticsearch/data:/usr/share/elasticsearch/data
+    - ./elasticsearch/config:/usr/share/elasticsearch/config
+  environment:
+    - ES_JAVA_OPTS=-Xms1g -Xmx1g
+
+starchat:
+  image: java:9
+  command: /starchat-0.1/bin/starchat
+  volumes:
+    - ./starchat-0.1:/starchat-0.1
+  ports:
+    - "0.0.0.0:8888:8888"
+  links:
+    - "elasticsearch:getjenny-es"
+
