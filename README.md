@@ -609,7 +609,7 @@ After these steps the services will be up and running and you can initialize the
 
 ##Prepare ES
 
-* enter the directory scripts/index_management/<lang> e.g. enter the directory scripts/index_management/<english> 
+* enter the directory scripts/index_management/\<lang\> e.g. enter the directory scripts/index_management/\<english\> 
 * create the analyzers
 ```bash
 ./create_analyzer.sh
