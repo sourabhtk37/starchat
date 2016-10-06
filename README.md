@@ -1,40 +1,41 @@
-# *Chat
+# StarChat
 
-## *Chat in brief
-*Chat ("starchat") is a service for the implementation of workflow based chatbot.
+## StarChat in brief
+* StarChat is a service for the implementation of workflow based chatbot.
 
-*Chat provide a restful service to implement conversational agents.
+* StarChat provide a restful service to implement conversational agents.
 
-*Chat is under development and every contribution is welcome.
+* StarChat is under development and every contribution is welcome.
 
-## What problem *Chat is solving
+## What problem StarChat is solving
 
-*Chat solves the problem of specifying a conversational flow with actionable states and templates, it also solves the pattern matching and retrieval problem with the identification of the closest concept in the workflow in relation with the user input.
+* StarChat solves the problem of specifying a conversational flow with actionable states and templates, it also solves the pattern matching and retrieval problem with the identification of the closest concept in the workflow in relation with the user input.
 
-*Chat must scale horizontally with the instantiation of new services without any service interruption.
+* StarChat must scale horizontally with the instantiation of new services without any service interruption.
 The deployment must be easy
 
-*Chat offers a means to store and retrieve the conversations in consistent way and suitable to perform data analysis.
+* StarChat offers a means to store and retrieve the conversations in consistent way and suitable to perform data analysis.
 
-*Chat implements a state machine mechanism to guide the user in the conversation and to perform actions in relation of the user inputs.
+* StarChat implements a state machine mechanism to guide the user in the conversation and to perform actions in relation of the user inputs.
 * When no answer is found in the workflow of the state machine, the system, optionally, can fall back to the knowledge base provided by the collection of conversation of the customer service operators.
 * Chat is developed using [akka](http://akka.io).
 * Chat it is stateless to work in parallel with as many instances as you need. It is configurable by a simple configuration file and it is containerized with docker: deployment require few minutes!
 
-## How does *Chat work?
+## How does StarChat work?
 
-*Chat stores the conversations on a search engine with special configuration to handle the language of the bot
+* StarChat stores the conversations on a search engine with special configuration to handle the language of the bot
 
-A special table of the search engine is reserved for the state machine.
-The state machine allows to specify templated sentences to send personalized messages to the user
+* A special table of the search engine is reserved for the state machine.
 
-When the user enters a phrase, *Chat search the closest match in the state machine and guide the conversation from a state to another.
+* The state machine allows to specify templated sentences to send personalized messages to the user
 
-When no state matches the input text, optionally, *Chat searches on the knowledge base built with the past conversations.
+* When the user enters a phrase, StarChat search the closest match in the state machine and guide the conversation from a state to another.
 
-## Customization of *Chat
+* When no state matches the input text, optionally, *Chat searches on the knowledge base built with the past conversations.
 
-*Chat rely on [elasticsearch](https://www.elastic.co) for storing data and for the retrieval functionalities.
+## Customization of StarChat
+
+* StarChat rely on [elasticsearch](https://www.elastic.co) for storing data and for the retrieval functionalities.
 Is straightforward to customize the elasticsearch schema for new languages
 and adding new analyzers or new fields.
 
@@ -42,7 +43,7 @@ and adding new analyzers or new fields.
 
 ## The data schema
 
-* *Chat uses two data types on the same index:
+* StarChat uses two data types on the same index:
     * state type : for the storage of the state machine, the fields are the following
         * state : the name of the state 
         * queries : the list of queries which trigger the state e.g. ["cannot access account", "problem access account"],
@@ -64,7 +65,7 @@ and adding new analyzers or new fields.
 
 ## The Rest endpoint
 
-The *Chat REST service stands in the middle between the CLIENT which implement the BOT UI
+The StarChat REST service stands in the middle between the CLIENT which implement the BOT UI
 and the dataset and it provide data intelligence.
 
 The behaviour of the state machine is specified
@@ -114,7 +115,7 @@ instructions on what to do next
 * When the "decisiontable" functions does not return any results the user can call the "knowledgebase" endpoint
 which contains all the conversations. 
   
-# *Chat Api specification
+# StarChat Api specification
 
 ## get_next_response
 
@@ -174,7 +175,7 @@ which contains all the conversations.
 }
 ```
 
-#### example of the output dictionary after the user said that he has forgot the password (state "forgot_password"):
+#### Example of the output dictionary after the user said that he has forgot the password (state "forgot_password"):
 
 ```json
 {
@@ -187,7 +188,7 @@ which contains all the conversations.
 }
 ```
 
-#### example of output dictionary after the CLIENT has sent to the SYSTEM the email address where to send the reset link (state "send_password_generation_link")
+#### Example of output dictionary after the CLIENT has sent to the SYSTEM the email address where to send the reset link (state "send_password_generation_link")
 
 ```json
 {
@@ -202,7 +203,7 @@ which contains all the conversations.
 
 ##### return code: 204
 
-this code is returned when no response was found by the engine
+This code is returned when no response was found by the engine
 
 ##### Errors
 
@@ -586,21 +587,26 @@ The service binds on the port 8888 by default.
 
 ## docker
 
-* generate a packet distribution
+* Generate a packet distribution
 ```bash
 sbt dist
 ```
-* extract the packet into the docker-starchat folder
+
+* Extract the packet into the docker-starchat folder
 ```bash
 unzip target/universal/starchat-0.1.zip && mv starchat-0.1 docker-starchat
 ```
-* enter the directory docker-starchat 
+
+* Enter the directory docker-starchat 
 ```bash
 cd  docker-starchat
 ```
-* review the configuration files
-    * edit the file starchat-0.1/config/application.conf and modify the ip where elasticsearch is bind
-* run the services (both startchat and elasticsearch)
+
+* Review the configuration files
+      
+      * Edit the file starchat-0.1/config/application.conf and modify the ip where elasticsearch is bind
+* Run the services (both startchat and elasticsearch)
+
 ```bash
 docker-compose up -d
 ```
@@ -609,12 +615,13 @@ After these steps the services will be up and running and you can initialize the
 
 ##Prepare ES
 
-* enter the directory scripts/index_management/\<lang\> e.g. enter the directory scripts/index_management/english 
-* create the analyzers
+* Enter the directory scripts/index_management/\<lang\> e.g. enter the directory scripts/index_management/english 
+* Create the analyzers
 ```bash
 ./create_analyzer.sh
 ```
-* create the data types
+
+* Create the data types
 ```bash
 ./set_question_type.sh
 ./set_state_type.sh
